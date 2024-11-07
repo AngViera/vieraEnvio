@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LagoShop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+    <link rel="stylesheet" href="{{ url_for('css', filename='estilo.css') }}">
+
+
+</head>
+<body>
+    <!-- SECCION INICIO -->
+    <section id="inicio">
+        <header>
+            <div class="contenido-header">
+                <div class="logo">
+                    <h1>LagoShop</h1>
+                    {% if current_user.is_authenticated %}
+                        <p>Bienvenido, {{ current_user.Nombres }}!</p>
+                    {% endif %}
+                </div>
+                <nav id="nav">
+                    <ul>
+                        <li class="active">
+                            <a href="#inicio" onclick="seleccionar()">
+                                <i class="fa-solid fa-house"></i>
+                                <span>Inicio</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#Categorias" onclick="seleccionar()">
+                                <i class="fa-solid fa-th"></i>
+                                <span>Categorías</span>
+                            </a>                            
+                        </li>
+                        <li>
+                            <a href="{{ url_for('buscar') }}">
+                                <i class="fa-solid fa-magnifying-glass"></i> 
+                                <span>Buscar</span>
+                            </a>
+                        </li>                        
+                        <li>
+                            <a href="#contacto" onclick="seleccionar()">
+                                <i class="fa-solid fa-comments"></i>
+                                <span>Contacto</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="social">
+                  
+                    <a href="" title="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="" title="Twitter">
+                        <i class="fa-brands fa-twitter"></i>
+                    </a>
+                    
+                    {% if current_user.is_authenticated %}
+                <a href="{{ url_for('logout') }}" title="Cerrar sesión">
+                    <i class="fa-solid fa-sign-out-alt"></i> <!-- Ícono para cerrar sesión -->
+                </a>
+            {% else %}
+                <a href="{{ url_for('login') }}" title="Inicio de sesión">
+                    <i class="fa-solid fa-user"></i>
+                </a>
+            {% endif %}
+                    
+                    
+                </div>
+                <div class="nav-responsive" id="bar" onclick="mostrarOcultarMenu()">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </div>
+        </header>
+        <!-- Carrusel -->
+        <div class="carrusel">
+            <div class="gallery js-flickity" data-flickity-options='{ "wrapAround":true, "pageDots": false, "autoPlay": true}'>
+                <div class="gallery-cell">
+                    <img src="{{ url_for('static', filename='img/2.jpg') }}" alt="">
+                </div>
+                <div class="gallery-cell">
+                    <img src="{{ url_for('static', filename='img/3.jpg') }}" alt="">
+                </div>
+                <div class="gallery-cell">
+                    <img src="{{ url_for('static', filename='img/4.jpg') }}" alt="">
+                </div>
+                <div class="gallery-cell">
+                    <img src="{{ url_for('static', filename='img/5.jpg') }}" alt="">
+                </div>
+            </div>
+            <div class="info">
+                <h2>LagoShop </h2>
+                <p>compra y venta de una amplia gama de productos, incluyendo artículos locales y recuerdos. Ofrece una experiencia de compra conveniente para residentes y turistas en la región del lago.</p>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- SECCION CATEGORIAS -->
+    <section id="Categorias">
+        <h2>Categorias</h2>
+        <div class="fila">
+            <div class="item">
+                <a href="/Menu_restaurantes" class="enlace-item">
+                <div class="icono">
+                    <img src="{{ url_for('static', filename='img/Restaurante.png') }}" alt="">
+                </div>
+                <div class="info">
+                    <h3>Restaurantes</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                </div>
+            </a>
+            </div>
+            <div class="item">
+                <a  href="{{ url_for('buscar_categoria', categoria=2) }}"class="enlace-item">
+                <div class="icono">
+                    <img src="{{ url_for('static', filename='img/Bebidas.png') }}" alt="">
+                </div>
+                <div class="info">
+                    <h3>Bebidas</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                </div>
+            </a>
+            </div>
+            <div class="item">
+                <a href="/Menu_supermercados" class="enlace-item">
+                <div class="icono">
+                    <img src="{{ url_for('static', filename='img/Supermercado.png') }}" alt="">
+                </div>
+                <div class="info">
+                    <h3>Supermercados</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="fila">
+            <div class="item">
+                <a href="Menu_helados" class="enlace-item">
+                <div class="icono">
+                    <img src="{{ url_for('static', filename='img/Helado.png') }}" alt="">
+                </div>
+                <div class="info">
+                    <h3>Helados y Postres</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                </div>
+                </a>
+            </div>
+            <div class="item">
+                <a href="/Menu_distribuidoras" class="enlace-item">
+                <div class="icono">
+                    <img src="{{ url_for('static', filename='img/Distribuidor.png') }}"alt="">
+                </div>
+                <div class="info">
+                    <h3>Distribuidoras</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                </div>
+                </a>
+            </div>
+            <div class="item">
+                <a href="/Menu_farmacias" class="enlace-item">
+                <div class="icono">
+                    <img src="{{ url_for('static', filename='img/Farmacia.png') }}" alt="">
+                </div>
+                <div class="info">
+                    <h3>Farmacia</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                </div>
+            </div>
+        </a>
+        </div>
+
+    </section>
+
+
+
+    <!-- SECCION CONTACTO Y PIE DE PAGINA -->
+    <section id="contacto">
+        <div class="fila">
+            <div class="col">
+                <h1>LagoShop</h1>
+            </div>
+            <div class="col">
+                <h3>Menú</h3>
+                <a href="#inicio">Inicio</a>
+                <a href="#Categorias">Categorias</a>
+                <a href="#blog">Blog</a>
+            </div>
+            <div class="col">
+                <h3>Redes sociales</h3>
+                <div class="media">
+                    <i class="fa-brands fa-twitter"></i> <a href="#">Twitter</a>
+                </div>
+                <div class="media">
+                    <i class="fa-brands fa-instagram"></i> <a href="#">Instagram</a>
+                </div>
+            </div>
+            <div class="col">
+                <h3>Contacto</h3>
+                <input type="text" placeholder="Tu correo">
+                <input type="submit" class="enviar">
+            </div>
+        </div>
+
+    </section>
+    
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

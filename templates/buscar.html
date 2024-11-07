@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en" class="h-100" data-bs-theme="auto">
+  <head>
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>Resultados de Busqueda</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+   
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="{{ url_for('static', filename='js/buscar.js') }}"></script>
+<script>
+
+ </script>
+    
+
+    <!-- Favicons -->
+    <link rel="icon" href="{{ url_for('static', filename='img/Restaurante.png') }}" type="image/x-icon">
+<meta name="theme-color" content="#712cf9">
+
+
+    <!-- Custom styles for this template -->
+        <link rel="stylesheet" href="{{ url_for('css', filename='estilo.css') }}">
+
+
+  </head>
+
+
+  <!-- Fixed navbar -->
+    <header>
+      <section id="inicio">
+        <header>
+            <div class="contenido-header">
+                <div class="logo">
+                    <h1>LagoShop</h1>
+                </div>
+                <nav id="nav">
+                    <ul>
+                        <li>
+                            <a href="{{ url_for('home') }}">
+                                <i class="fa-solid fa-house"></i>
+                                <span>Inicio</span>
+                            </a>
+                        </li>
+                          <li>
+                            <a href="{{ url_for('buscar') }}">                                
+                                <i class="fa-solid fa-magnifying-glass"></i> <!-- Ícono de búsqueda -->
+                                <span>Buscar</span> <!-- Texto del botón -->
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="social">
+                 
+                    <a href="" title="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="" title="Twitter">
+                        <i class="fa-brands fa-twitter"></i>
+                    </a>
+                    
+                    <a href="" title="Inicio de sesion">
+                        <i class="fa-solid fa-user"></i>
+                    </a>
+                    
+                </div>
+                <div class="nav-responsive" id="bar" onclick="mostrarOcultarMenu()">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </div>
+</header>
+
+<main id="principal">
+ <body>
+    <div class="container">
+    <div class="section-overlap justify-content-center align-items-center">
+      <div class="input-group"> 
+        <label for="filtronav" style="display: none;">Buscar Artículos</label>
+        <input type="text" class="form-control" name="Buscador" id="filtronav" placeholder=" Ingrese Palabras clave" aria-describedby="boton-desplegable" title="Busqueda">
+        
+        <button type="button" id="searchButton" class="button-icon">🔍</button>
+        </div>
+         <div class="text-center">
+            <!-- Filtro Precio -->
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="boton-precio" aria-expanded="false">$Precio</button>
+
+            <div id="menu-precio" class="dropdown-menu" aria-labelledby="boton-precio">
+                <label for="precioInput">Max$</label>
+<input class= "custom-range" type="range" id="precioInput" name="precioMaximo" min="0" max="10000000" step="25000" value="10000000">
+<span class="price-text fade-in" id="precioInputValue"></span>
+    <div class="dropdown-item">
+        <p><i class="fa-solid fa-info-circle" aria-hidden="true"></i>Presione el boton de busqueda</p>
+        <p> para aplicar este filtro</p></div></div>
+
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="boton-dropdown" aria-expanded="false">Categoria</button>
+
+        <!-- Menu desplegable -->
+        <div id="menu-categorias" class="container dropdown-menu" aria-labelledby="boton-desplegable">
+          <li class="dropdown-header">Categoría:</li>
+          <div id="category-filters"></div>
+           <!-- Categorias SE ACTUALIZA CON CATEGORIAS EN BD -->
+
+    <!-- Guía de usuario -->
+    <div class="dropdown-item">
+        <p><i class="fa-solid fa-info-circle" aria-hidden="true"></i>Presione el boton de busqueda</p>
+        <p> para aplicar este filtro</p></div>
+    </div>
+</div>
+ </div>
+    </div>
+   
+
+</main>
+
+  <div class="container">
+        <h2 class="mt-2">Busqueda :</h2>
+
+    {% if selected_categories %}
+      
+    {% endif %}
+
+    <div id="thumbnails" class="search-container">
+        {% if productos %}
+            {% for producto in productos %}
+                    {% if producto.estado == 1 %}
+
+                <figure class="card">
+                    <img src="{{ url_for('static', filename='img/' + (producto.imagesurl[0] if producto.imagesurl else 'preview.jpg')) }}" alt="{{ producto.nombre }}" onclick="window.location.href='/producto/{{ producto.id }}';"  ><!--Link directo al producto -->
+                    <h3 class="nombre">{{ producto.nombre }}</h3>
+                    <h3 class="price-text">${{ "{:,.0f}".format(producto.precio) }}</h3>
+                    <!--formatear precio crudo con jinja -->
+
+                    <div class="text-center">
+                        <button class="btn btn-primary">Comprar</button>
+                    </div>
+                </figure>
+            {% endif %}
+            {% endfor %}
+        {% else %}
+            <div class="thumbnail text-center">
+                <h2>Sin resultados, Intente un criterio más simple</h2>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+      <!-- Resultados se agregarán aquí dinámicamente -->
+    </div>
+  </div>
+
+            <div id="no-results" class="fade-in text-center">
+               <h1>Sin resultados, Intente un criterio mas simple</h1>
+                </div>
+                
+    </div>
+
+    <div class="mt-5">
+    </div>
+    <footer id="sticker" class="footer-advanced-aside mt-5">
+      <div class="container mt-5">
+        <span> <p class="text-end">Ing Jairo Rodriguez Martinez  - </p>
+        <p>-Saday Stilie Giraldo</p>
+            <p class="text-end">Proyecto Integrador</p>
+                <p>-Mariana De los Angeles Viera</p>
+                <p class="text-end">Desarrollo de Software 2</p>
+         <p>-Juan David Naranjo</p></span>
+      </div>
+    </footer>
+    
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Local</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> <!-- Usando url_for para la hoja de estilos -->
+</head>
+<body>
+    <h1>Esta es la página principal del local o negocio</h1>
+    <p>Bienvenido <span id="nombre"></span> <span id="apellido"></span></p> 
+    <a href="{{ url_for('publicar') }}">Publicar Producto</a><br> 
+    <a href="{{ url_for('resumen_ventas') }}">Ver Resumen de Ventas</a> <br> 
+    <a href="{{ url_for('home') }}">Volver al Inicio</a>
+    
+
+</body>
+</html>
+
+

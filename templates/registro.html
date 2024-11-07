@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario / Iniciar Sesión</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ url_for('css', filename='estilo.css') }}">
+</head>
+<body class="body_login">
+    <div class="wrapper-login">
+        <!-- Botones para seleccionar tipo de usuario -->
+        <div class="tab-container">
+            <button class="tab active" id="cliente-tab">Cliente</button>
+            <button class="tab" id="admin-tab">Administrador</button>
+            <a href="{{ url_for('login') }}" class="tab" id="login-tab">Iniciar Sesión</a>
+        </div>
+        
+        <!-- Formulario para registrar cliente -->
+        <div class="form-container active" id="form-cliente">
+            <form class="form_login" method="POST" action="{{ url_for('registrar') }}">
+                <h1 class="title-login">Registrar Cliente</h1>
+                <div class="entrada-login">
+                    <input type="text" name="nombre" id="nombre_cliente" class="input-login" placeholder="Nombre completo" required>
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <div class="entrada-login">
+                    <input type="email" name="email" id="email_cliente" class="input-login" placeholder="Correo electrónico" required>
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+                <div class="entrada-login">
+                    <input type="password" name="contraseña" id="contraseña_cliente" class="input-login" placeholder="Contraseña" required>
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <button type="submit" class="submit-login">Registrar Cliente</button>
+        </div>
+        
+        <!-- Formulario para registrar administrador -->
+        <div class="form-container" id="form-admin" style="display:none;">
+                <h1 class="title-login">Registrar Administrador</h1>
+                <div class="entrada-login">
+                    <input type="text" name="nombre" id="nombre_admin" class="input-login" placeholder="Nombre completo" required>
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <div class="entrada-login">
+                    <input type="email" name="email" id="email_admin" class="input-login" placeholder="Correo electrónico" required>
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+                <div class="entrada-login">
+                    <input type="password" name="contraseña" id="contraseña_admin" class="input-login" placeholder="Contraseña" required>
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <button type="submit" class="submit-login">Registrar Administrador</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/registro.js') }}"></script>
+</body>
+</html>

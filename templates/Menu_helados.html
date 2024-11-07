@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helados y Postres en LagoShop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ url_for('css', filename='estilo.css') }}">
+</head>
+<body>
+    <!-- SECCION HELADOS Y POSTRES -->
+    <section id="helados-postres">
+        <a href="/" class="btn-regresar">
+            <i class="fa-solid fa-arrow-left"></i> Regresar
+        </a>
+        
+        <h2>Helados y Postres</h2>
+        <div class="fila">
+            <div class="item">
+                <div class="icono">
+                    <img src="{{ url_for('static', filename='img/helado-chocolate.jpg') }}" alt="Helado de Chocolate">
+                </div>
+                <div class="info">
+                    <h3>Helado de Chocolate</h3>
+                    <p>Deléitate con el clásico y cremoso helado de chocolate, perfecto para cualquier ocasión.</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="icono">
+                    <img src="{{ url_for('static', filename='img/pastel-fresa.jpg') }}" alt="Pastel de Fresa">
+                </div>
+                <div class="info">
+                    <h3>Pastel de Fresa</h3>
+                    <p>Disfruta de un esponjoso pastel de fresa, fresco y perfecto para tus celebraciones.</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="icono">
+                    <img src="{{ url_for('static', filename='img/gelatina-frutas.jpg') }}" alt="Gelatina de Frutas">
+                </div>
+                <div class="info">
+                    <h3>Gelatina de Frutas</h3>
+                    <p>Una opción ligera y deliciosa, nuestra gelatina de frutas es ideal como postre o snack.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

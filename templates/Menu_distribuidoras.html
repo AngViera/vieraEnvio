@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distribuidoras en LagoShop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ url_for('css', filename='estilo.css') }}">
+</head>
+<body>
+    <!-- SECCION DISTRIBUIDORAS -->
+    <section id="distribuidoras">
+        <a href="/" class="btn-regresar">
+            <i class="fa-solid fa-arrow-left"></i> Regresar
+        </a>
+        
+        <h2>Distribuidoras</h2>
+        <div class="fila">
+            <div class="item">
+                <div class="icono">
+                    <img src="{{ url_for('static', filename='img/distribuidora-alimentos.jpg') }}" alt="Distribuidora de Alimentos">
+                </div>
+                <div class="info">
+                    <h3>Distribuidora de Alimentos</h3>
+                    <p>Surtido completo de productos alimenticios frescos y congelados para mayoristas.</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="icono">
+                    <img src="{{ url_for('static', filename='img/distribuidora-bebidas.jpg') }}" alt="Distribuidora de Bebidas">
+                </div>
+                <div class="info">
+                    <h3>Distribuidora de Bebidas</h3>
+                    <p>Variedad de bebidas alcohólicas y no alcohólicas en grandes cantidades.</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="icono">
+                    <img src="{{ url_for('static', filename='img/distribuidora-productos-limpieza.jpg') }}" alt="Distribuidora de Productos de Limpieza">
+                </div>
+                <div class="info">
+                    <h3>Distribuidora de Productos de Limpieza</h3>
+                    <p>Productos de limpieza y desinfección para empresas y negocios en general.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

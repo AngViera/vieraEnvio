@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar Horario - {{ tienda.Nombre }}</title>
+     <link rel="stylesheet" href="{{ url_for('css', filename='estilo.css') }}">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+<body>
+    <div class=" settings container">
+        <h1>Modificar Horario de {{ tienda.Nombre }}</h1>
+        
+        <form action="{{ url_for('guardar_horario', nit=tienda.Nit) }}" method="POST">
+            <h2 class="mt-5">Horarios por Día de la Semana</h2>
+            <h5 class="dropdown-header">Instrucciones de Usuario</h5>
+    <div class="dropdown-item">
+        <p> <i class="fa-solid fa-info-circle" aria-hidden="true"></i>  Agregar la hora en que se abre su establecimiento en las casillas de apertura y el dia correspondiente</p>
+        <p>   <i class="fa-solid fa-info-circle" aria-hidden="true"></i>Tambien permite agregar la hora en que se cierra su establecimiento en las casillas de cierre y el dia correspondiente (Por defecto 00:00 AM)</p><!--DOD Documentacion para usuarios admin -->
+    </div>
+<div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Concepto</th>
+                    <th>Lunes</th>
+                    <th>Martes</th>
+                    <th>Miércoles</th>
+                    <th>Jueves</th>
+                    <th>Viernes</th>
+                    <th>Sábado</th>
+                    <th>Domingo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Apertura</td>
+                    <td>
+                        <input type="time" class="form-control" id="horario_lunes_apertura" name="horario_lunes_apertura" value="{{ tienda.Horario_Lunes_Apertura }}" required>
+                    </td>
+                    <td>
+                        <input type="time" class="form-control" id="horario_martes_apertura" name="horario_martes_apertura" value="{{ tienda.Horario_Martes_Apertura }}" required>
+                    </td>
+                    <td>
+                        <input type="time" class="form-control" id="horario_miercoles_apertura" name="horario_miercoles_apertura" value="{{ tienda.Horario_Miercoles_Apertura }}" required>
+                    </td>
+                    <td>
+                        <input type="time" class="form-control" id="horario_jueves_apertura" name="horario_jueves_apertura" value="{{ tienda.Horario_Jueves_Apertura }}" required>
+                    </td>
+                    <td>
+                        <input type="time" class="form-control" id="horario_viernes_apertura" name="horario_viernes_apertura" value="{{ tienda.Horario_Viernes_Apertura }}" required>
+                    </td>
+                    <td>
+                        <input type="time" class="form-control" id="horario_sabado_apertura" name="horario_sabado_apertura" value="{{ tienda.Horario_Sabado_Apertura }}" required>
+                    </td>
+                    <td>
+                        <input type="time" class="form-control" id="horario_domingo_apertura" name="horario_domingo_apertura" value="{{ tienda.Horario_Domingo_Apertura }}" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Cierre</td>
+                    <td>
+                        <input type="time" class="form-control" id="horario_lunes_cierre" name="horario_lunes_cierre" value="{{ tienda.Horario_Lunes_Cierre }}" required>
+                    </td>
+                    <td>
+                        <input type="time" class="form-control" id="horario_martes_cierre" name="horario_martes_cierre" value="{{ tienda.Horario_Martes_Cierre }}" required>
+                    </td>
+                    <td>
+                        <input type="time" class="form-control" id="horario_miercoles_cierre" name="horario_miercoles_cierre" value="{{ tienda.Horario_Miercoles_Cierre }}" required>
+                    </td>
+                    <td>
+                        <input type="time" class="form-control" id="horario_jueves_cierre" name="horario_jueves_cierre" value="{{ tienda.Horario_Jueves_Cierre }}" required>
+                    </td>
+                    <td>
+                        <input type="time" class="form-control" id="horario_viernes_cierre" name="horario_viernes_cierre" value="{{ tienda.Horario_Viernes_Cierre }}" required>
+                    </td>
+                    <td>
+                        <input type="time" class="form-control" id="horario_sabado_cierre" name="horario_sabado_cierre" value="{{ tienda.Horario_Sabado_Cierre }}" required>
+                    </td>
+                    <td>
+                        <input type="time" class="form-control" id="horario_domingo_cierre" name="horario_domingo_cierre" value="{{ tienda.Horario_Domingo_Cierre }}" required>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        <button type="submit" class="btn-regresar">Guardar Cambios</button>
+    </form>
+
+        <button href="{{ url_for('local_dashboard') }}" class="btn-secondary">Volver a la Página del Local</button>
+    </div>
+       <section id="contacto">
+        <div class="fila">
+            <div class="col">
+                <h1>LagoShop</h1>
+            </div>
+            <div class="col">
+                <h3>Menu</h3>
+                <a href="#inicio">Inicio</a>
+                <a href="#Categorias">Categorias</a>
+                <a href="#blog">Blog</a>
+            </div>
+            <div class="col">
+                <h3>Redes sociales</h3>
+                <div class="media">
+                    <i class="fa-brands fa-twitter"></i> <a href="#">Twitter</a>
+                </div>
+                <div class="media">
+                    <i class="fa-brands fa-instagram"></i> <a href="#">Instagram</a>
+                </div>
+            </div>
+            <div class="col">
+                <h3>Contacto</h3>
+                <input type="text" placeholder="Tu correo">
+                <input type="submit" class="enviar">
+            </div>
+        </div>
+
+    </section>
+</body>
+</html>

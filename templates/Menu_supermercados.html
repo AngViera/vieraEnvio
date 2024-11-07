@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supermercados en LagoShop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ url_for('css', filename='estilo.css') }}">
+</head>
+<body>
+    <!-- SECCION SUPERMERCADOS -->
+    <section id="supermercados">
+        <a href="/" class="btn-regresar">
+            <i class="fa-solid fa-arrow-left"></i> Regresar
+        </a>
+        
+        <h2>Supermercados</h2>
+        <div class="fila">
+            <div class="item">
+                <div class="icono">
+                    <img src="{{ url_for('static', filename='img/frutas.jpg') }}" alt="Frutas y Verduras">
+                </div>
+                <div class="info">
+                    <h3>Frutas y Verduras</h3>
+                    <p>Encuentra la más fresca selección de frutas y verduras para tu dieta saludable.</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="icono">
+                    <img src="{{ url_for('static', filename='img/lacteos.jpg') }}" alt="Lácteos">
+                </div>
+                <div class="info">
+                    <h3>Lácteos</h3>
+                    <p>Elige entre una variedad de productos lácteos frescos como leche, queso y yogurt.</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="icono">
+                    <img src="{{ url_for('static', filename='img/carnes.jpg') }}" alt="Carnes y Embutidos">
+                </div>
+                <div class="info">
+                    <h3>Carnes y Embutidos</h3>
+                    <p>Descubre nuestra oferta de carnes frescas y embutidos para tus comidas diarias.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

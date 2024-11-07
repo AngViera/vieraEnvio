@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Solicitudes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Solicitudes de Administrador</h1>
+        {% with mensajes = get_flashed_messages() %}
+            {% if mensajes %}
+                <ul class="flashes">
+                    {% for mensaje in mensajes %}
+                        <li>{{ mensaje }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        
+        {% if solicitudes %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Dirección</th>
+                        <th>Categoría</th>
+                        <th>Descripción</th>
+                        <th>Email</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for solicitud in solicitudes %}
+                        <tr>
+                            <td>{{ solicitud.id }}</td>
+                            <td>{{ solicitud.Nombre }}</td>
+                            <td>{{ solicitud.Direccion }}</td>
+                            <td>{{ solicitud.ID_Categoria }}</td>
+                            <td>{{ solicitud.Descripcion }}</td>
+                            <td>{{ solicitud.Email }}</td>
+                            <td>{{ solicitud.Estado }}</td>
+                            <td>
+                                <form action="{{ url_for('manejar_solicitud', id=solicitud.id) }}" method="post">
+                                    <input type="hidden" name="razon" value="Rechazo por defecto"> <!-- Campo para la razón -->
+                                    <button type="submit" name="accion" value="aceptar">Aceptar</button>
+                                    <button type="submit" name="accion" value="rechazar">Rechazar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No hay solicitudes pendientes.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

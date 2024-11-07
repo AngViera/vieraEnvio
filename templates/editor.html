@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Productos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+    <script src="{{ url_for('static', filename='js/editor.js') }}"> </script>
+
+<!--Custom Stylesheets-->
+    <link rel="stylesheet" href="{{ url_for('css', filename='estilo.css') }}">
+</head>
+<body>
+<section id="main">
+   <div >
+    <div class="mt-5 thumbnail">
+       <h1>PRODUCTOS</h1>
+    </div>
+        <div class="container text-end"> <!--Mostrar/Ocultar inactivos-->
+
+          <div>
+                <div class="input-group" > 
+                  <label for="filtronav" style="display: none;">Buscar Articulos</label>
+                    <input type="text" class="form-control" name="Buscador" id="filtronav" placeholder="Buscar..." aria-describedby="boton-desplegable" title="Busqueda">
+                    
+                    
+                    <button type="button" id="searchButton" class="button-icon">🔍</button>
+
+       
+        
+    
+                        <select class="select-bar" id="Estado" name="Estado">
+                            <option value="1">Ocultar productos inactivos</option>
+                            <option value="0">Mostrar productos inactivos</option>
+                            
+                        </select>
+                         </div>
+                    </div>
+                </div>
+       <div id="productos" class="product-container">
+           
+       </div>
+   </div>
+</section>
+
+
+    <!-- SECCION CONTACTO Y PIE DE PAGINA -->
+    <section id="contacto">
+        <div class="fila">
+            <div class="col">
+                <h1>LagoShop</h1>
+            </div>
+            <div class="col">
+                <h3>Menu</h3>
+                <a href="#inicio">Inicio</a>
+                <a href="#Categorias">Categorias</a>
+                <a href="#blog">Blog</a>
+            </div>
+            <div class="col">
+                <h3>Redes sociales</h3>
+                <div class="media">
+                    <i class="fa-brands fa-twitter"></i> <a href="#">Twitter</a>
+                </div>
+                <div class="media">
+                    <i class="fa-brands fa-instagram"></i> <a href="#">Instagram</a>
+                </div>
+            </div>
+            <div class="col">
+                <h3>Contacto</h3>
+                <input type="text" placeholder="Tu correo">
+                <input type="submit" class="enviar">
+            </div>
+        </div>
+
+    </section>
+    <!-- Modal para BORRAR-->
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <h1>Desactivar Producto</h1>
+        <h2 id="modalProductName">Nombre del Producto</h2> 
+        <h2 id="modalProductId">ID: </h2> 
+        <img class="fixed-img" id="modalProductImage" src="" alt="Imagen del Producto" /> <!-- Añadir imagen -->
+        <h3>Opciones:</h3>
+        <button id="cancelar" type="button" class="btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button id="desactivar" type="button" class="btn-primary" data-dismiss="modal">Marcar como agotado</button>
+        <button id="descontinuar" type="button" class="btn-delete" >Ocultar</button>
+    </div>
+</div>
+
+<!-- Modal para Editar -->
+<div id="editarModal" class="modal">
+    <div class="modal-content text-center">
+        <span class="close" id="closeEditModal">&times;</span>
+        <h1>Editar Producto</h1>
+        
+        <div class="form-group">
+            <label for="editProductName">Nombre del Producto:</label>
+            <input type="text" id="editProductName" class="form-input">
+        </div>
+        
+        <div class="form-group">
+            <label for="editProductPrice">$Precio:</label>
+            <input type="number" id="editProductPrice" class="form-input" value="10000" step="10000" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="editProductDescription">Descripción:</label>
+            <textarea id="editProductDescription" class="form-input" rows="5"></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="editProductTags">Etiquetas:</label>
+            <input type="text" id="editProductTags" class="form-input">
+        </div>
+            <input type="hidden" id="imageFilenames" name="imageFilenames" />
+
+            <div class="row">
+            <div id="currentImages" class="fila">
+               <!--Recuperar urls imagen producto acrual-->
+            </div>
+            <label for="file-upload" class="plus-button">
+                <input type="file" id="file-upload" multiple />
+                <span class="icon">+</span>
+            </label>
+            </div>
+    <div class="btn-container">
+        <button id="activateProduct" type="button" class="btn-primary">Activar</button> <!-- Solo se muestra en productos desactivados -->
+        <button id="saveEdit" type="button" class="btn-primary">Guardar Cambios</button>
+        <button id="cancelEdit" type="button" class="btn-secondary">Cancelar</button>
+    </div>    
+    </div>
+</div>
+
+
+
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+</body>
+</html>

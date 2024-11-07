@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if tienda %}{{ tienda.nombre }}{% else %}Nueva Tienda{% endif %} :)</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
+    <script src="{{ url_for('static', filename='js/tienda.js') }}"> </script>
+
+<!--Custom Stylesheets-->
+    <link rel="stylesheet" href="{{ url_for('css', filename='estilo.css') }}">
+ 
+        
+</head>
+<body>
+ <section id="inicio">
+        <header>
+            <div class="contenido-header">
+                <div class="logo">
+                    <h1>LagoShop</h1>
+                </div>
+                <nav id="nav">
+                    <ul>
+                        <li class="active">
+                            <a href="/" onclick="seleccionar()">
+                                <i class="fa-solid fa-house"></i>
+                                <span>Inicio</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#Categorias" onclick="seleccionar()">
+                                <i class="fa-solid fa-th"></i>
+                                <span>Categorías</span>
+                            </a>                            
+                        </li>
+                        <li>
+                            <a href="{{ url_for('buscar') }}">
+                                <i class="fa-solid fa-magnifying-glass"></i> 
+                                <span>Buscar</span>
+                            </a>
+                        </li>                        
+                        <li>
+                            <a href="#contacto" onclick="seleccionar()">
+                                <i class="fa-solid fa-comments"></i>
+                                <span>Contacto</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="social">
+                  
+                    <a href="" title="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="" title="Twitter">
+                        <i class="fa-brands fa-twitter"></i>
+                    </a>
+                    
+                    {% if current_user.is_authenticated %}
+                <a href="{{ url_for('logout') }}" title="Cerrar sesión">
+                    <i class="fa-solid fa-sign-out-alt"></i> <!-- Ícono para cerrar sesión -->
+                </a>
+            {% else %}
+                <a href="{{ url_for('login') }}" title="Inicio de sesión">
+                    <i class="fa-solid fa-user"></i>
+                </a>
+            {% endif %}
+                    
+                    
+                </div>
+                <div class="nav-responsive" id="bar" onclick="mostrarOcultarMenu()">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </div>
+        </header>
+            
+<div id="headerImage" class="header-image fade-in">
+    {% if tienda %}
+        <img id="innerImage" src="{{ url_for('static', filename='img/' + tienda.banner) }}" alt="Banner de tienda">
+        <a onclick="window.history.back();" class="btn-secondary">
+            <i class="fa-solid fa-arrow-left"></i>Regresar
+        </a>
+    {% else %}
+        <img id="innerImage" src="{{ url_for('static', filename='img/preview.jpg') }}" alt="Banner de tienda">
+        <button id="cropButton" class="crop-button">Seleccionar Imagen</button>
+        <h1 class="text-center">Developer tools</h1>
+    {% endif %}
+    
+</div>
+
+<!-- Modal para recortar imagen -->
+<div id="cropModal" class="modal">
+    <div class="modal-content">
+        <span id="closecrop" class="close">&times;</span>
+        <h2>Seleccionar Imagen</h2>
+        <div>
+            <p><i class="fa-solid fa-info-circle" aria-hidden="true">
+            </i> Recortar la imagen subida para ajustarla
+            al tamanio de la pagina </p>
+        </div>
+        <button class="btn-secondary">
+        <input type="file" id="imageInput" accept="image/*">
+        </button>
+        <div class="crop-image">
+            <img id="cropperImage">
+        </div>
+        <button class="btn-primary" id="cropImageButton">Guardar Imagen</button>
+    </div>
+</div>
+    <div class="btn-container">
+    	
+    
+    <div class="info-container">
+        <h1 id="nombre" class="menu-name">{{ tienda.nombre if tienda else 'Nombre' }}</h1>
+        <h2 id="categoria" class="menu-categoria">{{ categoria.Nombre if tienda else 'Seleccionar categoria' }}</h2>
+<div>
+  <a id="toggleInfo" class="tab active">Informacion</a>
+ </div>
+
+<!-- primer div info -->
+<section id="datatienda" class="info">
+<div id="div1" class="menu-datos fade-in show">
+    <div id="descripcion" class="info">
+                <strong>Descripción:</strong>
+                <span id="descripcionContent">{{ tienda.descripcion if tienda else '' }}</span>
+            </div>
+
+            <!-- Dirección -->
+            <div id="direccion" class="info">
+                <h4>Dirección:</h4> 
+                <span id="direccionContent">{{ tienda.direccion if tienda else '' }}</span>
+            </div>
+
+            <!-- NIT -->
+            <div id="nuevo_nit" class="info">
+                <strong>NIT:</strong>
+                <span id="nitContent">{{ tienda.nit if tienda else '' }}</span>
+            </div>
+
+            <!-- Estado -->
+            <div class="info">
+                <strong>Estado:</strong> 
+                <span id="estadoContent">{{ 'Abierto' if tienda and tienda.estado else 'Cerrado' }}</span>
+            </div>
+    </div>
+<span id="toggleButton" class="tab active">Ver Horarios</span>
+<!-- segundo div horarios-->
+<div id="div2" class="strong menu-datos fade-in" >
+  
+
+
+        {% if tienda %}
+    <div class="info "id="horarios">
+<table>
+    <thead>
+        <tr>
+            <th>Horarios</th>
+            <th>Apertura</th>
+            <th>Cierre</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><!--Formato de hora('%H:%M')-->
+            <th>Lunes</th>
+            <td>{{ tienda.horario_lunes_apertura.strftime('%H:%M') if tienda.horario_lunes_apertura else 'Cerrado' }}</td>
+            <td>{{ tienda.horario_lunes_cierre.strftime('%H:%M') if tienda.horario_lunes_cierre else 'Cerrado' }}</td>
+        </tr>
+        <tr>
+            <th>Martes</th>
+            <td>{{ tienda.horario_martes_apertura.strftime('%H:%M') if tienda.horario_martes_apertura else 'Cerrado' }}</td>
+            <td>{{ tienda.horario_martes_cierre.strftime('%H:%M') if tienda.horario_martes_cierre else 'Cerrado' }}</td>
+        </tr>
+        <tr>
+            <th>Miércoles</th>
+            <td>{{ tienda.horario_miercoles_apertura.strftime('%H:%M') if tienda.horario_miercoles_apertura else 'Cerrado' }}</td>
+            <td>{{ tienda.horario_miercoles_cierre.strftime('%H:%M') if tienda.horario_miercoles_cierre else 'Cerrado' }}</td>
+        </tr>
+        <tr>
+            <th>Jueves</th>
+            <td>{{ tienda.horario_jueves_apertura.strftime('%H:%M') if tienda.horario_jueves_apertura else 'Cerrado' }}</td>
+            <td>{{ tienda.horario_jueves_cierre.strftime('%H:%M') if tienda.horario_jueves_cierre else 'Cerrado' }}</td>
+        </tr>
+        <tr>
+            <th>Viernes</th>
+            <td>{{ tienda.horario_viernes_apertura.strftime('%H:%M') if tienda.horario_viernes_apertura else 'Cerrado' }}</td>
+            <td>{{ tienda.horario_viernes_cierre.strftime('%H:%M') if tienda.horario_viernes_cierre else 'Cerrado' }}</td>
+        </tr>
+        <tr>
+            <th>Sábado</th>
+            <td>{{ tienda.horario_sabado_apertura.strftime('%H:%M') if tienda.horario_sabado_apertura else 'Cerrado' }}</td>
+            <td>{{ tienda.horario_sabado_cierre.strftime('%H:%M') if tienda.horario_sabado_cierre else 'Cerrado' }}</td>
+        </tr>
+        <tr>
+            <th>Domingo</th>
+            <td>{{ tienda.horario_domingo_apertura.strftime('%H:%M') if tienda.horario_domingo_apertura else 'Cerrado' }}</td>
+            <td>{{ tienda.horario_domingo_cierre.strftime('%H:%M') if tienda.horario_domingo_cierre else 'Cerrado' }}</td>
+        </tr>
+    </tbody>
+</table>
+
+    </div>
+    {% endif %}
+
+    </div>
+
+</section>
+</div>
+    <div class="info-container">
+            <h2>Productos </h2>
+            <div id="thumbnails" class="product-container"></div>
+            {% if tienda is undefined %}
+            <h3>Agregar Icono - Vista previa en submenus</h3>
+            <div id="iconButton" class="plus-button">
+            <label for="inputIcon" >
+                <input type="file" id="inputIcon" />
+                <span class="icon">+</span>
+            </label>
+            </div> 
+            <div id="card-container"></div>
+            {% endif %}
+            <div class="pagination text-center">
+        <!--Base para desplazamiento-->>
+        <span id="portNumber" class="page-numbers">
+            <button class="btn-secondary">1</button>
+            <button class="btn-secondary">2</button>
+        </span>
+    </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div id="modalProducto" class="modal">
+    <div class="modal-dialog">
+        <div  id="productoset" class="text-center modal-content">
+            <span id="closemodal" class="close">&times;</span>
+            <h5 class="col-ld-6" >Comprar Producto</h5>
+            <div class="modal-body" id="contenidoModal">
+            </div>
+            <div id="carousel" class="carousel-center">
+        <!-- Las imágenes se añadirán dinámicamente aquí -->
+            </div>
+            <button class="btn-primary">Comprar</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

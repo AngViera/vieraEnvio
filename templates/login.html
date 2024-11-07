@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ url_for('css', filename='estilo.css') }}">
+</head>
+<body class="body_login">
+    <div class="wrapper-login">
+        <form class="form_login" method="POST" action="{{ url_for('login') }}">
+            <h1 class="title-login">Iniciar sesión</h1>
+            <div class="entrada-login">
+                <input type="email" name="email" id="email" class="input-login" placeholder="Correo electrónico" required>
+                <i class="fa-solid fa-user"></i>
+            </div>
+            <div class="entrada-login">
+                <input type="password" name="contraseña" id="contraseña" class="input-login" placeholder="Contraseña" required>
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            
+            <!-- Mensaje de alerta -->
+            <div id="alert" class="alert" style="display:none;">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+
+            <button type="submit" class="submit-login">Iniciar sesión</button>
+            <p class="footer-login">¿No tienes cuenta? <a href="{{ url_for('registrar') }}" class="link-login">Por favor, Registrate</a></p>
+        </form>
+
+        <div class="banner-login">
+            <h1 class="text-login">BIENVENIDO A LAGO SHOP<br/></h1>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/registro.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+
+<h2>Gestión de Categorías</h2>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul>
+      {% for category, message in messages %}
+        <li class="alert alert-{{ category }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}  
+
+
+<form id="categoria-form" method="post" action="{{ url_for('agregar_categoria') }}">
+    <input type="text" name="nombre_categoria" placeholder="Nombre de la nueva categoría" required>
+    <button type="submit">Agregar Categoría</button>
+</form>
+
+
+<ul id="lista-categorias">
+    {% for categoria in categorias %}
+    <li>
+        {{ categoria.Nombre }}
+        <button onclick="editarCategoria({{ categoria.ID_Categoria }}, '{{ categoria.Nombre }}')">Editar</button>
+        <button onclick="eliminarCategoria({{ categoria.ID_Categoria }})">Eliminar</button>
+    </li>
+    {% endfor %}
+</ul>
+
+<script>
+function editarCategoria(id, nombre) {
+    const nuevoNombre = prompt("Editar nombre de la categoría:", nombre);
+    if (nuevoNombre) {
+        fetch('/editar_categoria', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: id, nuevoNombre: nuevoNombre })
+        }).then(response => location.reload());
+    }
+}
+
+function eliminarCategoria(id) {
+    if (confirm("¿Estás seguro de eliminar esta categoría?")) {
+        fetch('/eliminar_categoria', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: id })
+        }).then(response => location.reload());
+    }
+}
+</script>
+

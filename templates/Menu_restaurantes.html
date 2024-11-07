@@ -1,0 +1,54 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurantes en LagoShop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/estilo.css">
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</head>
+<body>
+    <!-- Navbar -->
+<div class="navbar-menu">
+        <h1>LagoShop</h1>
+        <h1>Restaurantes</h1> 
+    
+
+                <div id="nav" onclick="mostrarSidebar()">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </div>
+        <!-- Sidebar -->
+        <div>
+    <div class="sidebar" id="sidebar">
+        <a onclick="window. history. back();" class="btn-regresar">
+            <i class="fa-solid fa-arrow-left"></i>Regresar
+        </a>
+        <input type="text" class="form-control" name="Buscador" id="filtronav" placeholder="Buscar" aria-describedby="boton-desplegable" title="Busqueda">
+        <button type="button" id="searchButton" class="button-icon">🔍</button>
+          <select class="select-bar" id="select-bar">
+             <option value="abiertos">Restaurantes Abiertos</option>
+            <option value="todos">Todos los restaurantes</option>
+        </select>
+        </div>
+
+    </div>
+    <div class="tienda-container">
+        
+           {% for restaurante in restaurantes %}
+    
+        
+            <div class="tienda-card" onclick="location.href='{{ url_for('tienda_menu', Nombre=restaurante.nombre) }}'">
+                    <img src="{{ url_for('static', filename='img/' + restaurante.icono) }}"  alt="Icono {{ restaurante.nombre }}">
+                <div class="info">
+                    <div class="card-title"><h3>{{ restaurante.nombre }}</h3></div>
+                    <div class="card-description">{{ restaurante.descripcion }}</div>
+                </div>
+            </div>
+         {% endfor %}
+            
+
+</body>
+</html>

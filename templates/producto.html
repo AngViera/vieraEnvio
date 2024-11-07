@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ nombre }}</title> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="{{ url_for('css', filename='estilo.css') }}">
+    <script src="{{ url_for('static', filename='js/producto.js') }}"> </script>
+</head>
+<body>
+<header>
+      <section id="inicio">
+        <header>
+            <div class="contenido-header">
+                <div class="logo">
+                    <h1>LagoShop</h1>
+                </div>
+                <nav id="nav">
+                    <ul>
+                        <li>
+                            <a href="{{ url_for('home') }}">
+                                <i class="fa-solid fa-house"></i>
+                                <span>Inicio</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('buscar') }}">
+                                <i class="fa-solid fa-magnifying-glass"></i> 
+                                <span>Buscar</span>
+                            </a>
+                        </li> 
+                  
+                    </ul>
+                </nav>
+                <div class="social">
+              
+                    
+                    <a href="{{ url_for('login') }}"  title="Inicio de sesion">
+                        <i class="fa-solid fa-user"></i>
+                    </a>
+                    
+                </div>
+                <div class="nav-responsive" id="bar" onclick="mostrarOcultarMenu()">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </div>
+        </header>
+
+ 
+<div>
+    <div class="container">
+        <a onclick="window. history. back();" class="btn-regresar">
+            <i class="fa-solid fa-arrow-left"></i> Regresar
+        </a>
+    </div>
+    <div class="row">
+    <div class="col-ld-6">
+    <div id="carousel-container">
+        <div class="carousel">
+            {% for url in imagesurl %}
+                <div class="carousel-cell">
+                    <img src="{{ url_for('static', filename='img/' ~ url) }}" alt="Imagen #">
+                </div>
+            {% endfor %}
+        </div>
+    </div> 
+    </div> 
+    <div id="getID" class="producto" data-id="{{ productoid }}">
+           <h1> {{ nombre }}</h1>
+           <h1 class="title-login">$${{ "{:,.0f}".format(precio) }}</h1> 
+           <div class="mt-2 text-center">
+            <div class="counter">
+                <h3>Cantidad:</h3>
+                <button class="btn-secondary" id="decrement">-</button>
+                <span class="value" id="counterValue">0</span>
+                <button class="btn-secondary" id="increment">+</button>
+            </div>
+        <div class="menu-datos">
+            <h3>Descripcion:</h3>
+           <p>{{ descripcion | safe }}</p>
+           <h4 class="mt-2">Etiquetas:</h4>
+           <p>{{ etiquetas }}</p>
+           <div class="mt-5">
+        </div>
+            {% if estado == 1 %}
+            <button id="comprar" class="btn-primary">Comprar</button>
+            {% else %}
+            <h3>PRODUCTO AGOTADO</h3>
+            <button id="inutil" class="btn-secondary">Comprar</button> 
+
+            {% endif %}
+
+           <!--Restringir este boton solo para Admin/duenos del producto-->
+           {%if current_user.Nombres == "Admin2" %}
+           <button id="borrar" class="btn-delete">quitar</button>
+           {% else %}
+           <p class="hidden" id="borrar"></p> <!--clase hidden para evitar bugs de js -->
+            {% endif %}
+           </div>
+           </div>
+  </div></div>
+ 
+    
+      <h3 class="menu-datos ">Productos Similares:</h3>
+    
+        <div class="product-container" id="getSimilar"></div> <!-- Aquí se muestran los productos -->
+
+
+
+  </div>
+<!-- Modal para BORRAR-->
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <h1>Desactivar Producto</h1>
+        <p>¿Estás seguro de que deseas desactivar este producto?</p>
+        <button id="cancelar" type="button" class="btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button id="desactivar" type="button" class="btn-primary" data-dismiss="modal">Marcar como agotado</button>
+        <button id="descontinuar" type="button" class="btn-delete" id="confirmDelete">Descontinuar</button>
+    </div>
+</div>
+<!-- Insertar Funcion para comprar/reservar-->
+<div id="comprarModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <h1>Comprar</h1>
+        <button id="cancelar2" type="button" class="btn-secondary" data-dismiss="modal">Cancelar</button>
+
+    </div>
+</div>
+                
+            
+  
+
+</body>
+</html>

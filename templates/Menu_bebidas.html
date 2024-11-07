@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bebidas en LagoShop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ url_for('css', filename='estilo.css') }}">
+</head>
+<body>
+    <!-- SECCION BEBIDAS -->
+    <section id="bebidas">
+        <a href="/" class="btn-regresar">
+            <i class="fa-solid fa-arrow-left"></i> Regresar
+        </a>
+        
+        <h2>Bebidas</h2>
+        <div class="fila">
+            <div class="item">
+                <div class="icono">
+                    <img src="{{ url_for('static', filename='img/JugoTropical.jpeg') }}" alt="Bebida A">
+                </div>
+                <div class="info">
+                    <h3>Jugo Tropical</h3>
+                    <p>Disfruta de una mezcla refrescante de frutas tropicales, perfecta para cualquier ocasión.</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="icono">
+                    <img src="{{ url_for('static', filename='img/CervezaArtisan.jpg') }}" alt="Bebida B">
+                </div>
+                <div class="info">
+                    <h3>Cerveza Artisan</h3>
+                    <p>Descubre nuestra cerveza artesanal con sabores únicos y un toque especial.</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="icono">
+                    <img src="{{ url_for('static', filename='img/VinoTinto.jpg') }}" alt="Bebida C">
+                </div>
+                <div class="info">
+                    <h3>Vino Tinto</h3>
+                    <p>Disfruta de un vino tinto selecto, ideal para acompañar tus cenas más elegantes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en" class="h-100" data-bs-theme="auto">
+  <head>
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>Agregar Nuevo Producto</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <!-- Favicons -->
+    <link rel="icon" href="{{ url_for('static', filename='img/Restaurante.png') }}" type="image/x-icon">
+    <meta name="theme-color" content="#712cf9">
+
+
+    <!-- Custom styles for this template -->
+    
+     <link rel="stylesheet" href="{{ url_for('css', filename='estilo.css') }}">
+
+
+
+  </head>
+  <body class="d-flex flex-column h-100">
+    
+
+  <!-- Fixed navbar -->
+  <header>
+      <section id="inicio">
+        <header>
+            <div class="contenido-header">
+                <div class="logo">
+                    <h1>LagoShop</h1>
+                </div>
+                <nav id="nav">
+                    <ul>
+                        <li>
+                            <a href="{{ url_for('home') }}">
+                                <i class="fa-solid fa-house"></i>
+                                <span>Inicio</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('buscar_categoria', categoria=1) }}">
+                                <i class="fa-solid fa-th"></i>
+                                <span>Categorías</span>
+                            </a>                            
+                        </li>
+                          <li class="active"> 
+                            <a href="#blog" onclick="seleccionar()">
+                                <i class="fa-solid fa-pen"></i>
+                                <span>Articulos</span>
+                            </a>
+                          </li>
+                        <li>
+                            <a href="#contacto" onclick="seleccionar()">
+                                <i class="fa-solid fa-comments"></i>
+                                <span>Contacto</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="social">
+                    <a href="" title="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="" title="Twitter">
+                        <i class="fa-brands fa-twitter"></i>
+                    </a>
+                    
+                    <a href="" title="Inicio de sesion">
+                        <i class="fa-solid fa-user"></i>
+                    </a>
+                    
+                </div>
+                <div class="nav-responsive" id="bar" onclick="mostrarOcultarMenu()">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </div>
+        </header>
+  </body>
+  
+
+ 
+   
+   <body class="h-100">
+  <div class="container">
+ 
+            <h1>Developer Tools</h1>
+        <span id="getpublisher"></span>
+
+        <div class="row mt-2">
+            <div class="col-md-8">
+                <h1>Ingresar Informacion del Producto:</h1>
+                <form id="publicacionForm">
+                    <div class="form-input">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="form-input">
+                        <label for="precio">Precio $</label>
+                        <input type="number" id="precio" name="precio" value="10000" step="10000" required>
+                    </div>
+                    <div class="form-input">
+                        <label for="opendesc">Descripcion</label>
+                        <input type="text" id="opendesc" name="descripcion">
+                    </div>
+                   <div class="form-input">
+                    <label for="tipo">Categoría</label>
+                    <select id="tipo" name="tipo" required>
+                        <option value="">Seleccione una categoría</option> <!-- Opción por defecto -->
+                    </select>
+                </div>
+                    <div id="tag-container" class="form-input">
+                        <label for="tags">SubCategoria</label>
+                        <input type="text" id="tags">
+
+                    </div>
+
+                </form>
+            </div>
+
+        <script src="{{ url_for('static', filename='js/publicar.js') }}"> </script> <!--SCRIPT para imagenes-->
+        <div class="col-md-8 img-container">
+            <div class="mt-5"> 
+              <h1>Agregar Imagenes</h1> <!--RELACIONAR CON CATALOGO.ID-->
+              <input type="file" id="imageUpload" class="button btn-primary mt-2" multiple>
+              <div id="gallery" class="row mt-3"></div>
+            </div>
+
+      </div>
+                   </div>                                    
+                   <button id="publicar" type="submit" class="btn-primary">Publicar</button>
+       
+
+        </div>
+        
+
+
+        <!-- Modal descripcion-->
+        <div class="modal" id="descripcionModal"  aria-labelledby="descripcionModallabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div id="textdescription" class="modal-content">
+            <div class="modal-header">
+                
+                    <button><span class="close">&times;</span></button>
+                <h3 class="modal-title" id="descripcionModallabel">>>Ingrese Descripcion del producto: </h3>
+                              
+            </div>
+            <div class="text-center">
+                <textarea class="form-control" id="descripcion" rows="10"></textarea>
+            </div>
+            
+                <button type="button" class="btn btn-primary" id="saveDescription">Guardar</button>
+            
+        </div>
+    </div>
+      
+        
+       
+    </div>
+</div>
+  </container>
+     <section id="contacto">
+        <div class="fila">
+            <div class="col">
+                <h1>LagoShop</h1>
+            </div>
+            <div class="col">
+                <h3>Menú</h3>
+                <a href="{{url_for('home')}}">Inicio</a>
+                <a href="#Categorias">Categorias</a>
+                <a href="#blog">Blog</a>
+            </div>
+            <div class="col">
+                <h3>Redes sociales</h3>
+                <div class="media">
+                    <i class="fa-brands fa-twitter"></i> <a href="#">Twitter</a>
+                </div>
+                <div class="media">
+                    <i class="fa-brands fa-instagram"></i> <a href="#">Instagram</a>
+                </div>
+            </div>
+            <div class="col">
+                <h3>Contacto</h3>
+                <input type="text" placeholder="Tu correo">
+                <input type="submit" class="enviar">
+            </div>
+        </div>
+
+    </section>
+ <!-- meter coso de abajo de color con texto de contacto-->
+</body>
+</html>

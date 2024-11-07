@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Solicitud de Administrador</title>
+</head>
+<body>
+    <h1>Solicitud para Crear Cuenta de Administrador</h1>
+    <form action="{{ url_for('solicitud_Administrador') }}" method="post">
+        <label for="nombre">Nombre de la Tienda:</label>
+        <input type="text" name="nombre" required><br>
+
+        <label for="direccion">Dirección:</label>
+        <input type="text" name="direccion" required><br>
+
+        <label for="id_categoria">ID de Categoría:</label>
+        <input type="text" name="id_categoria" required><br>
+
+        <label for="descripcion">Descripción:</label>
+        <textarea name="descripcion" required></textarea><br>
+
+        <button type="submit">Enviar Solicitud</button>
+    </form>
+</body>
+</html>
